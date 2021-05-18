@@ -3,7 +3,6 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, DecimalField
 from wtforms.validators import DataRequired, URL
-import csv
 from flask_sqlalchemy import SQLAlchemy
 from typing import Callable
 import os
