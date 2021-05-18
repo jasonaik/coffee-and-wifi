@@ -1,0 +1,102 @@
+{% extends 'bootstrap/base.html' %}
+{% block styles %}
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('static', filename='css/styles.css')}}">
+<script src="https://kit.fontawesome.com/ae846c5924.js" crossorigin="anonymous"></script>
+<style>
+
+.content-div {
+    height: 360px;
+    padding: 30px 10px;
+}
+
+.image-div {
+    height: 360px;
+    padding: 30px 10px;
+}
+
+.cafe-image {
+    float: left;
+    width:  500px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.cafe-name {
+    padding: 10px 0 20px 0;
+    font-size: 40px;
+    margin-top: 0;
+}
+
+p {
+    padding: 5px;
+    font-size: 20px;
+}
+
+.icons {
+    font-size: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: #ffc107;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 80px;
+}
+</style>
+{% endblock %}
+{% block title %}All Cafes{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+
+      <h1>All Cafes</h1>
+
+                    {%for cafe in cafes%}
+
+                            <div class="col-lg-6 image-div">
+                                <img class="cafe-image" src="{{cafe.img_url}}" alt="{{cafe.name}}">
+                            </div>
+                            <div class="col-lg-6 content-div">
+                                <h3 class="cafe-name">{{cafe.name}} &nbsp; <a href="{{url_for('delete', cafe_id=cafe.id) }}">✘</a></h3>
+                                <p>Location: {{cafe.location}}</p>
+                                <p>Seats: {{cafe.seats}}</p>
+                                <p>Coffee Price: {{cafe.coffee_price}}</p>
+                                {%if cafe.has_sockets == 1%}
+                                    <i class="fas fa-plug icons"></i>
+                                {% endif %}
+                                {%if cafe.has_toilet == 1%}
+                                    <i class="fas fa-restroom icons"></i>
+                                {% endif %}
+                                {%if cafe.has_wifi == 1%}
+                                    <i class="fas fa-wifi icons"></i>
+                                {% endif %}
+                                {%if cafe.can_take_calls == 1%}
+                                    <i class="fas fa-phone-alt icons"></i>
+                                {% endif %}
+                                <hr>
+                            </div>
+
+                    {%endfor%}
+                </div>
+
+      <p><a href="{{ url_for('home') }}">Return to index page</a></p>
+
+    <a class="btn btn-warning btn-lg" href="{{ url_for('cafes') }}" role="button">All Cafes</a>
+    <a class="btn btn-warning btn-lg" href="{{ url_for('add_cafe') }}" role="button">Add Cafe</a>
+
+
+</div>
+
+{% endblock %}
